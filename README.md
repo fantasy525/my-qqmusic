@@ -1,6 +1,6 @@
 # zxf-music
 
-> A Vue.js project
+> A qq-music project
 
 ## Build Setup
 
