@@ -5,10 +5,9 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 .app_main {
-  //margin-top: 88px;
+ 
 }
 ul {
   list-style: none;
@@ -17,7 +16,7 @@ ul {
   text-align: left;
 }
 h1,
-h2 {
+h2 ,p{
   margin: 0;
   padding: 0;
 }
@@ -47,22 +46,23 @@ a {
   text-align: center;
   line-height: 56px;
   font-size: 30px; /*px*/
+  color:#fff;
 }
-.navbar{
-  
-  margin-top:88px;
-  .mint-tab-item-label{
-    font-size:36px;/*px*/
+.navbar {
+  margin-top: 88px;
+  .mint-tab-item-label {
+    font-size: 36px; /*px*/
   }
 }
 </style>
 
 <template>
   <div id="app">
-    <mt-header fixed title="">
-      <router-link to="/" slot="left" class="logo"></router-link>
-      <router-link slot="right" to="/" class="btn__download">下载App</router-link>
-    </mt-header>
+    <qq-head>
+       <router-link  slot="right" to="/" class="btn__download" >下载app</router-link>
+        <router-link to="/" slot="left" class="logo" ></router-link>
+     
+    </qq-head>
    <nav-bar></nav-bar>
    <div class="app_main">
       <router-view/>
@@ -72,11 +72,14 @@ a {
 
 <script>
 import "normalize.css";
-import NavBar from '@/components/navBar'
+
+import NavBar from "@/components/navBar";
+import Head from "@/components/header";
 export default {
   name: "App",
-  components:{
-    navBar:NavBar
+  components: {
+    navBar: NavBar,
+    qqHead: Head
   }
 };
 </script>

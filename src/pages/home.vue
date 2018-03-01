@@ -1,48 +1,70 @@
 <style lang='scss'>
-  .list{
-    li{
-      font-size:30px;/*px*/
-      line-height:150px;
-      border-bottom:1px solid #666;/*no*/
-      padding-left:20px;
-      .avatar{
-        width:100px;
-        height:100px;
-        border-radius:100px;
-        vertical-align: middle;
-      }
-      .singer_name{
-        margin-left:20px;
-      }
+.list {
+  li {
+    font-size: 30px; /*px*/
+    line-height: 150px;
+    border-bottom: 1px solid #666; /*no*/
+    padding-left: 20px;
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 100px;
+      vertical-align: middle;
+    }
+    .singer_name {
+      margin-left: 20px;
     }
   }
+}
 </style>
 
 <template>
 <div>
- <ul class="list" v-if="HotSinger.length>0">
-   <li v-for="(item,index) in HotSinger" :key="index"
+ <ul class="list" v-if="HotSinger.length>0" v-show="isHome" >
+   <li v-for="(item,index) in HotSinger"@click="goDetail(item)" :key="index"
    >
    <img :src="item.avatar" class="avatar">
    <span class="singer_name"> {{item.Fsinger_name}}</span>
    </li>
  </ul>
+ <router-view></router-view>
 </div>
 </template>
 
 <script>
-import jsonp from "@/common/jsonp";
 export default {
-  name: "Home",
+  name: "Singer",
   data() {
     return {
-      HotSinger: []
+      HotSinger: [],
+      isHome: true
     };
   },
   created() {
     this.getHotSong();
   },
+  beforeRouteUpdate(to, from, next) {
+    // 在渲染该组件的对应路由被 confirm 前调用
+    // 不！能！获取组件实例 `this`
+    // 因为当守卫执行前，组件实例还没被创建
+   
+    if(from.name==='SingerDetail'){
+      this.isHome=true
+    }else{
+      this.isHome=false
+    }
+    next();
+  },
+ 
   methods: {
+    goDetail(item) {
+    
+    
+      this.$router.push({
+        name: "SingerDetail",
+        params: { id: item.Fsinger_mid }
+      });
+    },
     getHotSong() {
       const params = {
         channel: "singer",
@@ -53,12 +75,13 @@ export default {
       };
       const url = "https://c.y.qq.com/v8/fcg-bin/v8.fcg";
 
-      jsonp(url, params).then(res => {
+      this.$jsonp(url, params).then(res => {
         console.log(res);
-        this.HotSinger = res.data.list.map(item=>{
-          item.avatar=`https://y.gtimg.cn/music/photo_new/T001R150x150M000${item.Fsinger_mid
-}.jpg?max_age=2592000`
-          return item
+        this.HotSinger = res.data.list.map(item => {
+          item.avatar = `https://y.gtimg.cn/music/photo_new/T001R150x150M000${
+            item.Fsinger_mid
+          }.jpg?max_age=2592000`;
+          return item;
         });
       });
     },

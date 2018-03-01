@@ -9,7 +9,7 @@ export default function jsonp(url, data) {
     inCharset: "utf-8",
     outCharset: "utf-8",
     notice: 0,
-    platform: "yqq",
+    platform: "h5page",
     needNewCode: 0
   }
   data=Object.assign({},data,commonParams)

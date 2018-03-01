@@ -1,0 +1,19 @@
+.mint-msgbox-wrapper /deep/ .mint-msgbox-message{
+  max-height:500px;
+  overflow: scroll;
+  font-size:28px;/*px*/
+}
+.mint-msgbox-wrapper /deep/ .mint-msgbox-message{
+  border-bottom:none;
+}
+
+.mint-msgbox-wrapper{
+  .mint-msgbox-btns{
+    height:50px;
+    line-height:50px;
+  }
+  .mint-msgbox-btn{
+    font-size:28px;/*px*/
+    line-height:50px;
+  }
+} 
